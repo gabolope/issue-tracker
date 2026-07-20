@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/adapter-mariadb": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "@radix-ui/themes": "^3.3.0",
     "@types/node": "26.1.1",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
@@ -16,6 +19,7 @@
     "classnames": "^2.3.2",
     "eslint": "9.39.5",
     "eslint-config-next": "16.2.10",
+    "mariadb": "^3.5.3",
     "next": "16.2.10",
     "postcss": "8.5.19",
     "prisma": "^7.8.0",
@@ -23,7 +27,8 @@
     "react-dom": "19.2.7",
     "react-icons": "^4.11.0",
     "tailwindcss": "^3.3.3",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "zod": "^3.22.2"
   },
   "allowScripts": {
     "@prisma/engines@5.3.1": true,
