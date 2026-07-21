@@ -12,6 +12,7 @@ import { MdError } from "react-icons/md";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
+import { Spinner } from "@radix-ui/themes";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   //import dinámico dado que había un error con el import clásico
@@ -23,6 +24,7 @@ type issueForm = z.infer<typeof createIssueSchema>;
 const NewIssuePage = () => {
   const router = useRouter();
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
@@ -31,14 +33,16 @@ const NewIssuePage = () => {
     formState: { errors },
   } = useForm<issueForm>({ resolver: zodResolver(createIssueSchema) });
 
-  const onSubmit: SubmitHandler<issueForm> = async (data) => {
+  const onSubmit = handleSubmit(async (data) => {
     try {
+      setIsSubmitting(true);
       await axios.post("/api/issues", data);
       router.push("/issues");
     } catch (error) {
+      setIsSubmitting(false);
       setError("An unexpected error ocurred.");
     }
-  };
+  });
 
   return (
     <div className="max-w-xl">
@@ -50,7 +54,7 @@ const NewIssuePage = () => {
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-      <form className="max-w-xl space-y-3" onSubmit={handleSubmit(onSubmit)}>
+      <form className="max-w-xl space-y-3" onSubmit={onSubmit}>
         <TextField.Root placeholder="Title" {...register("title")} />
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
         <Controller
@@ -60,10 +64,10 @@ const NewIssuePage = () => {
             <SimpleMDE placeholder="Description" {...field} />
           )}
         />
-
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
-
-        <Button>Submit New Issue</Button>
+        <Button disabled={isSubmitting}>
+          Submit New Issue <Spinner loading={isSubmitting} />
+        </Button>
       </form>
     </div>
   );
