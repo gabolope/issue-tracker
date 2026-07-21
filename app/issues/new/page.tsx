@@ -1,28 +1,35 @@
 "use client";
+
+import { createIssueSchema } from "@/app/validationSchemas";
+import { Button, Callout, Text, TextField } from "@radix-ui/themes";
 import axios from "axios";
-import { Button, Callout, TextField } from "@radix-ui/themes";
 import "easymde/dist/easymde.min.css";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { MdError } from "react-icons/md";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import ErrorMessage from "@/app/components/ErrorMessage";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   //import dinámico dado que había un error con el import clásico
   ssr: false,
 });
 
-interface issueForm {
-  title: string;
-  description: string;
-}
+type issueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
   const router = useRouter();
   const [error, setError] = useState("");
 
-  const { register, control, handleSubmit } = useForm<issueForm>();
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<issueForm>({ resolver: zodResolver(createIssueSchema) });
 
   const onSubmit: SubmitHandler<issueForm> = async (data) => {
     try {
@@ -43,9 +50,9 @@ const NewIssuePage = () => {
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-
       <form className="max-w-xl space-y-3" onSubmit={handleSubmit(onSubmit)}>
         <TextField.Root placeholder="Title" {...register("title")} />
+        <ErrorMessage>{errors.title?.message}</ErrorMessage>
         <Controller
           name="description"
           control={control}
@@ -53,6 +60,9 @@ const NewIssuePage = () => {
             <SimpleMDE placeholder="Description" {...field} />
           )}
         />
+
+        <ErrorMessage>{errors.description?.message}</ErrorMessage>
+
         <Button>Submit New Issue</Button>
       </form>
     </div>
