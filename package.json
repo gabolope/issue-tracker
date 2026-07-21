@@ -19,6 +19,7 @@
     "autoprefixer": "10.5.4",
     "axios": "^1.18.1",
     "classnames": "^2.3.2",
+    "delay": "^7.0.0",
     "eslint": "9.39.5",
     "eslint-config-next": "16.2.10",
     "mariadb": "^3.5.3",
