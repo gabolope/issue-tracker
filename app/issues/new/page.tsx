@@ -13,6 +13,7 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import { Spinner } from "@radix-ui/themes";
+import delay from "delay";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   //import dinámico dado que había un error con el import clásico
