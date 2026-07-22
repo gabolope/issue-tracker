@@ -4,7 +4,15 @@ import ErrorMessage from "@/app/components/ErrorMessage";
 import { issueSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Issue } from "@prisma/client";
-import { Button, Callout, Spinner, TextField } from "@radix-ui/themes";
+import {
+  Box,
+  Button,
+  Callout,
+  Card,
+  Skeleton,
+  Spinner,
+  TextField,
+} from "@radix-ui/themes";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import dynamic from "next/dynamic";
@@ -19,6 +27,13 @@ import z from "zod";
 //SimpleMDE no puede ser renderizado en el server, por lo que hay que indicar que no se renderice en el server de manera directa (ssr:false)
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
+  loading: () => (
+    <Box>
+      <Card className="prose" mt="4">
+        <Skeleton height="345px"></Skeleton>
+      </Card>
+    </Box>
+  ),
 });
 
 type issueFormData = z.infer<typeof issueSchema>;
