@@ -1,22 +1,22 @@
 "use client";
 
+import ErrorMessage from "@/app/components/ErrorMessage";
 import { createIssueSchema } from "@/app/validationSchemas";
-import { Button, Callout, Text, TextField } from "@radix-ui/themes";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Callout, Spinner, TextField } from "@radix-ui/themes";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { MdError } from "react-icons/md";
 import z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import ErrorMessage from "@/app/components/ErrorMessage";
-import { Spinner } from "@radix-ui/themes";
-import delay from "delay";
 
+//import dinámico para indicar que el componente no se renderice en el server
+//En next, todos los componentes se renderizan primero en el server, por más que sean del lado del cliente
+//SimpleMDE no puede ser renderizado en el server, por lo que hay que indicar que no se renderice en el server de manera directa (ssr:false)
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-  //import dinámico dado que había un error con el import clásico
   ssr: false,
 });
 
