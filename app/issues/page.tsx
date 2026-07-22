@@ -44,4 +44,6 @@ const IssuesPage = async () => {
   );
 };
 
+export const dynamic = "force-dynamic"; // fuerza a que esta página sea dinámica, por mas de que sea estática ya que no tiene parámetros
+
 export default IssuesPage;
