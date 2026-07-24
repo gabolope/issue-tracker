@@ -1,4 +1,5 @@
 import { issueSchema } from "@/app/validationSchemas";
+import { auth } from "@/auth";
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -6,6 +7,9 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const session = await auth();
+  if (!session) return NextResponse.json({}, { status: 401 }); // estas dos lineas impiden que se accedan a estos endpoints sin iniciar session
+
   const { id } = await params;
 
   const body = await request.json();
@@ -32,6 +36,9 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const session = await auth();
+  if (!session) return NextResponse.json({}, { status: 401 });
+
   const { id } = await params;
   const issue = await prisma.issue.findUnique({ where: { id: parseInt(id) } });
 

@@ -62,7 +62,7 @@ const NavLinks = () => {
 const AuthStatus = () => {
   const { status, data: session } = useSession();
 
-  return <Spinner size="3" />;
+  if (status === "loading") return <Spinner size="3" />;
 
   if (status === "unauthenticated")
     return (
