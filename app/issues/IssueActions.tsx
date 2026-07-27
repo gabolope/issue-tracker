@@ -1,11 +1,8 @@
-import { Button, Tooltip } from "@radix-ui/themes";
+import { Button, Flex, Tooltip } from "@radix-ui/themes";
 import Link from "next/link";
+import IssueStatusFilter from "./list/IssueStatusFilter";
 
-interface Props {
-  disabled: boolean;
-}
-
-const IssueActions = ({ disabled }: Props) => {
+const IssueActions = ({ disabled }: { disabled: boolean }) => {
   const button = (
     <Button disabled={disabled}>
       {disabled ? "New Issue" : <Link href="/issues/new">New Issue</Link>}
@@ -13,13 +10,14 @@ const IssueActions = ({ disabled }: Props) => {
   );
 
   return (
-    <div className="mb-5">
+    <Flex mb="5" justify="between">
+      <IssueStatusFilter />
       {disabled ? (
         <Tooltip content="Log in to add new issues.">{button}</Tooltip>
       ) : (
         button
       )}
-    </div>
+    </Flex>
   );
 };
 
