@@ -1,12 +1,24 @@
-import { Button } from "@radix-ui/themes";
+import { Button, Tooltip } from "@radix-ui/themes";
 import Link from "next/link";
 
-const IssueActions = () => {
+interface Props {
+  disabled: boolean;
+}
+
+const IssueActions = ({ disabled }: Props) => {
+  const button = (
+    <Button disabled={disabled}>
+      {disabled ? "New Issue" : <Link href="/issues/new">New Issue</Link>}
+    </Button>
+  );
+
   return (
     <div className="mb-5">
-      <Button>
-        <Link href="/issues/new">New Issue</Link>
-      </Button>
+      {disabled ? (
+        <Tooltip content="Log in to add new issues.">{button}</Tooltip>
+      ) : (
+        button
+      )}
     </div>
   );
 };

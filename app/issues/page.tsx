@@ -10,7 +10,7 @@ const IssuesPage = async () => {
 
   return (
     <>
-      {session && <IssueActions />}
+      <IssueActions disabled={session ? false : true} />
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>

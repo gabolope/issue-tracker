@@ -1,13 +1,11 @@
 import { Skeleton, Table } from "@radix-ui/themes";
 import IssueActions from "./IssueActions";
-import { auth } from "@/auth";
 
 const LoadingIssuesPage = async () => {
   const issues = [1, 2, 3, 4, 5];
-  const session = await auth();
   return (
     <>
-      {session && <IssueActions />}
+      <IssueActions disabled={true} />
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
