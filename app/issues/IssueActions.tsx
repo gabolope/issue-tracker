@@ -15,7 +15,7 @@ const IssueActions = ({ disabled }: { disabled: boolean }) => {
       {disabled ? (
         <Tooltip content="Log in to add new issues.">{button}</Tooltip>
       ) : (
-        button
+        button //TODO: REFACTORIZAR EN NUEVO COMPONENTE
       )}
     </Flex>
   );

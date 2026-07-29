@@ -6,9 +6,10 @@ import IssueDetails from "./IssueDetails";
 import DeleteIssueButton from "./DeleteIssueButton";
 import { auth } from "@/auth";
 import AssigneeSelect from "./AssigneeSelect";
+import { Status } from "@prisma/client";
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; status: Status }>;
 }
 
 const IssueDetailPage = async ({ params }: Props) => {

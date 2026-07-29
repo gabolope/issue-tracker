@@ -3,9 +3,23 @@ import { Table } from "@radix-ui/themes";
 import { IssueStatusBadge, Link } from "@/app/components";
 import IssueActions from "./IssueActions";
 import { auth } from "@/auth";
+import { Status } from "@prisma/client";
 
-const IssuesPage = async () => {
-  const issues = await prisma.issue.findMany();
+interface Props {
+  searchParams: Promise<{ status: Status }>;
+}
+
+const IssuesPage = async ({ searchParams }: Props) => {
+  const params = await searchParams;
+
+  // Lógica para que el usuario no pueda escribir cualqueir cosa en el query del endpoint para filtrar
+  const statutes = Object.values(Status);
+  const status = statutes.includes(params.status) ? params.status : undefined;
+
+  const issues = await prisma.issue.findMany({
+    where: { status },
+  });
+
   const session = await auth();
 
   return (
