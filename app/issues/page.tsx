@@ -24,8 +24,13 @@ const IssuesPage = async ({ searchParams }: Props) => {
   const statutes = Object.values(Status);
   const status = statutes.includes(params.status) ? params.status : undefined;
 
+  const orderBy = columns.map((column) => column.value).includes(params.orderBy)
+    ? { [params.orderBy]: "asc" }
+    : undefined;
+
   const issues = await prisma.issue.findMany({
     where: { status },
+    orderBy,
   });
 
   const session = await auth();
