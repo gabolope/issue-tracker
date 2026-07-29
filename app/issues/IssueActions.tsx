@@ -10,7 +10,7 @@ const IssueActions = ({ disabled }: { disabled: boolean }) => {
   );
 
   return (
-    <Flex mb="5" justify="between">
+    <Flex justify="between">
       <IssueStatusFilter />
       {disabled ? (
         <Tooltip content="Log in to add new issues.">{button}</Tooltip>

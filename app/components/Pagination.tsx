@@ -28,43 +28,45 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
   if (pageCount <= 1) return null;
 
   return (
-    <Flex align="center" gap="2">
+    <div className="grid grid-cols-3 items-center w-full">
       <Text size="2">
         Page {currentPage} of {pageCount}
       </Text>
-      <Button
-        color="gray"
-        variant="soft"
-        disabled={currentPage === 1}
-        onClick={() => changePage(1)}
-      >
-        <DoubleArrowLeftIcon />
-      </Button>
-      <Button
-        color="gray"
-        variant="soft"
-        disabled={currentPage === 1}
-        onClick={() => changePage(currentPage - 1)}
-      >
-        <ChevronLeftIcon />
-      </Button>
-      <Button
-        color="gray"
-        variant="soft"
-        disabled={currentPage === pageCount}
-        onClick={() => changePage(currentPage + 1)}
-      >
-        <ChevronRightIcon />
-      </Button>
-      <Button
-        color="gray"
-        variant="soft"
-        disabled={currentPage === pageCount}
-        onClick={() => changePage(pageCount)}
-      >
-        <DoubleArrowRightIcon />
-      </Button>
-    </Flex>
+      <Flex justify="center" gap="2">
+        <Button
+          color="gray"
+          variant="soft"
+          disabled={currentPage === 1}
+          onClick={() => changePage(1)}
+        >
+          <DoubleArrowLeftIcon />
+        </Button>
+        <Button
+          color="gray"
+          variant="soft"
+          disabled={currentPage === 1}
+          onClick={() => changePage(currentPage - 1)}
+        >
+          <ChevronLeftIcon />
+        </Button>
+        <Button
+          color="gray"
+          variant="soft"
+          disabled={currentPage === pageCount}
+          onClick={() => changePage(currentPage + 1)}
+        >
+          <ChevronRightIcon />
+        </Button>
+        <Button
+          color="gray"
+          variant="soft"
+          disabled={currentPage === pageCount}
+          onClick={() => changePage(pageCount)}
+        >
+          <DoubleArrowRightIcon />
+        </Button>
+      </Flex>
+    </div>
   );
 };
 
