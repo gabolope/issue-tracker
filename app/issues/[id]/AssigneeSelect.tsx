@@ -12,7 +12,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
 
   const assingIssue = async (value: string) => {
     try {
-      await axios.patch("/xapi/issues/" + issue.id, {
+      await axios.patch("/api/issues/" + issue.id, {
         assignedToUserId: value === "unassigned" ? null : value,
       });
     } catch (error) {
