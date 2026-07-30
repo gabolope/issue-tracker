@@ -8,6 +8,7 @@ import { auth } from "@/auth";
 import AssigneeSelect from "./AssigneeSelect";
 import { Status } from "@prisma/client";
 import StatusControl from "./StatusControl";
+import { title } from "node:process";
 
 interface Props {
   params: Promise<{ id: string; status: Status }>;
@@ -44,3 +45,13 @@ const IssueDetailPage = async ({ params }: Props) => {
 };
 
 export default IssueDetailPage;
+
+export async function generateMetadata({ params }: Props) {
+  const { id } = await params;
+  const issue = await prisma.issue.findUnique({ where: { id: parseInt(id) } });
+
+  return {
+    title: issue?.title,
+    description: "Details of issue " + issue?.id,
+  };
+}
