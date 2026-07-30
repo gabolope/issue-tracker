@@ -1,22 +1,16 @@
-import { Button, Flex, Tooltip } from "@radix-ui/themes";
-import Link from "next/link";
-import IssueStatusFilter from "./list/IssueStatusFilter";
+import { Box, Flex } from "@radix-ui/themes";
+import IssueStatusFilter from "./IssueStatusFilter";
+import NewIssueButton from "./NewIssueButton";
+import SelectPageSize from "./SelectPageSize";
 
 const IssueActions = ({ disabled }: { disabled: boolean }) => {
-  const button = (
-    <Button disabled={disabled}>
-      {disabled ? "New Issue" : <Link href="/issues/new">New Issue</Link>}
-    </Button>
-  );
-
   return (
     <Flex justify="between">
-      <IssueStatusFilter />
-      {disabled ? (
-        <Tooltip content="Log in to add new issues.">{button}</Tooltip>
-      ) : (
-        button //TODO: REFACTORIZAR EN NUEVO COMPONENTE
-      )}
+      <Flex gap="5">
+        <IssueStatusFilter />
+        <SelectPageSize />
+      </Flex>
+      <NewIssueButton disabled={disabled} />
     </Flex>
   );
 };
