@@ -17,7 +17,7 @@ export async function PATCH(
   if (!validation.success)
     return NextResponse.json(validation.error.format(), { status: 400 });
 
-  const { title, description, assignedToUserId } = body;
+  const { title, description, assignedToUserId, status } = body;
 
   // Si hay un usuario en el body del request, nos aseguramos de que sea un usuario válido:
   if (assignedToUserId) {
@@ -33,17 +33,13 @@ export async function PATCH(
   if (!issue)
     return NextResponse.json({ error: "Invalid issue" }, { status: 404 });
 
-  console.log({
-    assignedToUserId,
-    type: typeof assignedToUserId,
-  });
-
   const updatedIssue = await prisma.issue.update({
     where: { id: issue.id },
     data: {
       title,
       description,
       assignedToUserId,
+      status,
     },
   });
 

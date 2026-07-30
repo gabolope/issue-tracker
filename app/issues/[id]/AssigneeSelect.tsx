@@ -48,11 +48,12 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   );
 };
 
+// useQuery para traer los users
 const useUsers = () =>
   useQuery<User[]>({
     queryKey: ["users"],
     queryFn: () => axios.get("/api/users").then((res) => res.data),
-    staleTime: 60 * 1000 * 10, // 10 mins,
+    staleTime: 60 * 1000 * 10, // actualiza los usuarios cada 10 mins
     retry: 3,
   });
 

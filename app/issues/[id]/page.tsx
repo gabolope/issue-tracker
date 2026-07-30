@@ -7,6 +7,7 @@ import DeleteIssueButton from "./DeleteIssueButton";
 import { auth } from "@/auth";
 import AssigneeSelect from "./AssigneeSelect";
 import { Status } from "@prisma/client";
+import StatusControl from "./StatusControl";
 
 interface Props {
   params: Promise<{ id: string; status: Status }>;
@@ -24,13 +25,14 @@ const IssueDetailPage = async ({ params }: Props) => {
   if (!issue) notFound();
 
   return (
-    <Grid columns={{ initial: "1", sm: "5" }} gap="5">
-      <Box className="md:col-span-4">
+    <Grid columns={{ initial: "1", sm: "3", md: "4" }} gap="5">
+      <Box className="md:col-span-2 lg:col-span-3">
         <IssueDetails issue={issue} />
       </Box>
       {session && (
         <Box>
           <Flex direction="column" gap="4">
+            <StatusControl id={issue.id} status={issue.status} />
             <AssigneeSelect issue={issue} />
             <EditIssueButton issueId={issue.id} />
             <DeleteIssueButton issueId={issue.id} />
