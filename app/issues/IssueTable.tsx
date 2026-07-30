@@ -1,19 +1,55 @@
-import { Issue, Status } from "@prisma/client";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
-import { Table } from "@radix-ui/themes";
+import { Issue, Prisma, Status } from "@prisma/client";
+import { ArrowDownIcon, ArrowUpIcon } from "@radix-ui/react-icons";
+import { Avatar, Flex, Table } from "@radix-ui/themes";
 import NextLink from "next/link";
 import { IssueStatusBadge, Link } from "../components";
 
 export interface IssueQuery {
   status: Status;
   orderBy: keyof Issue;
+  direction: "asc" | "desc";
   page: string;
   pageSize: string;
 }
+
+type IssueWithAssignee = Prisma.IssueGetPayload<{
+  include: {
+    assignedToUser: {
+      select: {
+        name: true;
+        image: true;
+      };
+    };
+  };
+}>;
+
 interface Props {
   searchParams: Promise<IssueQuery>;
-  issues: Issue[];
+  issues: IssueWithAssignee[];
 }
+
+// Manejo de asc y desc
+const getSortParams = (column: keyof Issue, params: IssueQuery) => {
+  const searchParams = new URLSearchParams();
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value) searchParams.set(key, value);
+  });
+
+  if (params.orderBy !== column) {
+    searchParams.set("orderBy", column);
+    searchParams.set("direction", "asc");
+    return searchParams.toString();
+  }
+  if (params.direction === "asc") {
+    searchParams.set("direction", "desc");
+    return searchParams.toString();
+  }
+  searchParams.delete("orderBy");
+  searchParams.delete("direction");
+
+  return searchParams.toString();
+};
 
 const IssueTable = async ({ searchParams, issues }: Props) => {
   const params = await searchParams;
@@ -27,14 +63,20 @@ const IssueTable = async ({ searchParams, issues }: Props) => {
               key={column.value}
               className={column.className}
             >
-              <NextLink href={{ query: { ...params, orderBy: column.value } }}>
+              <NextLink href={`?${getSortParams(column.value, params)}`}>
                 {column.label}
               </NextLink>
-              {column.value === params.orderBy && (
-                <ArrowUpIcon className="inline" />
-              )}
+              {column.value === params.orderBy &&
+                (params.direction === "asc" ? (
+                  <ArrowUpIcon className="inline" />
+                ) : (
+                  <ArrowDownIcon className="inline" />
+                ))}
             </Table.ColumnHeaderCell>
           ))}
+          <Table.ColumnHeaderCell className="hidden md:table-cell">
+            Assigned to
+          </Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
@@ -52,6 +94,21 @@ const IssueTable = async ({ searchParams, issues }: Props) => {
             <Table.Cell className="hidden md:table-cell">
               {issue.createdAt.toDateString()}
             </Table.Cell>
+            <Table.Cell className="hidden md:table-cell">
+              {issue.assignedToUser ? (
+                <Flex align="center" gap="2">
+                  <Avatar
+                    src={issue.assignedToUser.image ?? undefined}
+                    fallback={issue.assignedToUser.name?.[0] ?? "?"}
+                    size="1"
+                    radius="full"
+                  />
+                  {issue.assignedToUser.name}
+                </Flex>
+              ) : (
+                <Flex justify="center">-</Flex>
+              )}
+            </Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>
@@ -61,7 +118,11 @@ const IssueTable = async ({ searchParams, issues }: Props) => {
 
 export default IssueTable;
 
-const columns: { label: string; value: keyof Issue; className?: string }[] = [
+const columns: {
+  label: string;
+  value: keyof Issue;
+  className?: string;
+}[] = [
   { label: "Issue", value: "title" },
   { label: "Status", value: "status", className: "hidden md:table-cell" },
   { label: "Created", value: "createdAt", className: "hidden md:table-cell" },

@@ -41,6 +41,7 @@ const StatusControl = ({ id, status }: Props) => {
         size="1"
         style={{ minWidth: 0, height: "2rem" }}
         onValueChange={changeStatus}
+        className="[&_.rt-SegmentedControlItemLabel]:whitespace-nowrap"
       >
         <SegmentedControl.Item value="OPEN">Open</SegmentedControl.Item>
         <SegmentedControl.Item value="IN_PROGRESS">

@@ -1,19 +1,18 @@
 "use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { FaBug } from "react-icons/fa";
-import classnames from "classnames";
-import { useSession } from "next-auth/react";
 import {
   Avatar,
   Box,
   Container,
   DropdownMenu,
   Flex,
-  Skeleton,
   Spinner,
   Text,
 } from "@radix-ui/themes";
+import classnames from "classnames";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FaBug } from "react-icons/fa";
 
 const NavBar = () => {
   return (
