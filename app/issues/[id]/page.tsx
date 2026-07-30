@@ -9,19 +9,23 @@ import AssigneeSelect from "./AssigneeSelect";
 import { Status } from "@prisma/client";
 import StatusControl from "./StatusControl";
 import { title } from "node:process";
+import { cache } from "react";
 
 interface Props {
   params: Promise<{ id: string; status: Status }>;
 }
+
+// Guardamos el user en un cache para hacer más liviana la conexión con el Server, así no se llama para buscar el usuario y luego para mostrar la metadata
+const fetchUser = cache((issueId: number) =>
+  prisma.issue.findUnique({ where: { id: issueId } }),
+);
 
 const IssueDetailPage = async ({ params }: Props) => {
   const session = await auth();
 
   const { id } = await params;
 
-  const issue = await prisma.issue.findUnique({
-    where: { id: parseInt(id) },
-  });
+  const issue = await fetchUser(parseInt(id));
 
   if (!issue) notFound();
 
@@ -48,7 +52,7 @@ export default IssueDetailPage;
 
 export async function generateMetadata({ params }: Props) {
   const { id } = await params;
-  const issue = await prisma.issue.findUnique({ where: { id: parseInt(id) } });
+  const issue = await fetchUser(parseInt(id));
 
   return {
     title: issue?.title,
