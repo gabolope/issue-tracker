@@ -2,7 +2,6 @@
 
 import { Select } from "@radix-ui/themes";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Status } from "../generated/prisma/enums";
 
 const status = [
   { label: "All", value: "" },
