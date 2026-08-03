@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import prisma from "@/prisma/client";
 import { Status } from "@prisma/client";
 import Pagination from "../components/Pagination";
-import IssueActions from "./IssueActions";
+import TableActions from "./TableActions";
 import IssueTable, { columnNames, IssueQuery } from "./IssueTable";
 import { Flex } from "@radix-ui/themes";
 import { Metadata } from "next";
@@ -48,7 +48,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
 
   return (
     <Flex direction="column" gap="3">
-      <IssueActions disabled={session ? false : true} />
+      <TableActions disabled={session ? false : true} />
       <IssueTable searchParams={searchParams} issues={issues} />
       <Pagination
         currentPage={page}

@@ -32,6 +32,7 @@ const NavBar = () => {
   );
 };
 
+// Como este componente se consume sólo aquí, Mosh lo definió en el mismo componente.
 const NavLinks = () => {
   const links = [
     { label: "Dashboard", href: "/" },

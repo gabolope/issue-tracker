@@ -1,9 +1,9 @@
-import { Box, Flex } from "@radix-ui/themes";
+import { Flex } from "@radix-ui/themes";
 import IssueStatusFilter from "./IssueStatusFilter";
 import NewIssueButton from "./NewIssueButton";
 import SelectPageSize from "./SelectPageSize";
 
-const IssueActions = ({ disabled }: { disabled: boolean }) => {
+const TableActions = ({ disabled }: { disabled: boolean }) => {
   return (
     <Flex justify="between">
       <Flex gap="5">
@@ -15,4 +15,4 @@ const IssueActions = ({ disabled }: { disabled: boolean }) => {
   );
 };
 
-export default IssueActions;
+export default TableActions;

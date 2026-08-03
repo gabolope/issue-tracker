@@ -1,11 +1,11 @@
 import { Flex, Skeleton, Table } from "@radix-ui/themes";
-import IssueActions from "./IssueActions";
+import TableActions from "./TableActions";
 
 const LoadingIssuesPage = async () => {
   const issues = [1, 2, 3, 4, 5];
   return (
     <Flex direction="column" gap="3">
-      <IssueActions disabled={true} />
+      <TableActions disabled={true} />
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>

@@ -5,7 +5,7 @@ import { SegmentedControl } from "@radix-ui/themes";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 interface Props {
   id: number;
@@ -49,7 +49,6 @@ const StatusControl = ({ id, status }: Props) => {
         </SegmentedControl.Item>
         <SegmentedControl.Item value="CLOSED">Closed</SegmentedControl.Item>
       </SegmentedControl.Root>
-      <Toaster />
     </>
   );
 };

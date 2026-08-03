@@ -27,7 +27,12 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
     <>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button color="red" className="px-1" disabled={isDeleting}>
+          <Button
+            color="red"
+            className="px-1"
+            disabled={isDeleting}
+            type="button"
+          >
             <TrashIcon />
             <p>Delete Issue</p>
             <Spinner loading={isDeleting} />
@@ -36,7 +41,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
         <AlertDialog.Content maxWidth="450px">
           <AlertDialog.Title>Confirm Deletion</AlertDialog.Title>
           <AlertDialog.Description>
-            Are you shure you want to delete this issua? This action is
+            Are you shure you want to delete this issue? This action is
             permanent.
           </AlertDialog.Description>
           <Flex gap="3" mt="4" justify="end">
