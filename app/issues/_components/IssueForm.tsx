@@ -48,7 +48,10 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<issueFormData>({ resolver: zodResolver(issueSchema) });
+  } = useForm<issueFormData>({
+    resolver: zodResolver(issueSchema),
+    defaultValues: { title: issue?.title, description: issue?.description },
+  });
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -74,21 +77,13 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
         </Callout.Root>
       )}
       <form className="max-w-xl space-y-3" onSubmit={onSubmit}>
-        <TextField.Root
-          defaultValue={issue?.title}
-          placeholder="Title"
-          {...register("title")}
-        />
+        <TextField.Root placeholder="Title" {...register("title")} />
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
         <Controller
           name="description"
           control={control}
           render={({ field }) => (
-            <SimpleMDE
-              defaultValue={issue?.description}
-              placeholder="Description"
-              {...field}
-            />
+            <SimpleMDE placeholder="Description" {...field} />
           )}
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>

@@ -7,6 +7,7 @@ import { Inter } from "next/font/google";
 import NavBar from "./NavBar";
 import AuthProvider from "./auth/Provider";
 import QueryClientProvider from "./QueryClientProvider";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,7 +32,10 @@ export default function RootLayout({
             <Theme accentColor="jade" radius="large">
               <NavBar />
               <main className="p-5">
-                <Container>{children}</Container>
+                <Container>
+                  {children}
+                  <Toaster />
+                </Container>
               </main>
             </Theme>
           </AuthProvider>

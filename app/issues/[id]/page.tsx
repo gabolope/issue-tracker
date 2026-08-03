@@ -1,15 +1,14 @@
+import { auth } from "@/auth";
 import prisma from "@/prisma/client";
+import { Status } from "@prisma/client";
 import { Box, Flex, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
+import { cache } from "react";
+import AssigneeSelect from "./AssigneeSelect";
+import DeleteIssueButton from "./DeleteIssueButton";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
-import DeleteIssueButton from "./DeleteIssueButton";
-import { auth } from "@/auth";
-import AssigneeSelect from "./AssigneeSelect";
-import { Status } from "@prisma/client";
 import StatusControl from "./StatusControl";
-import { title } from "node:process";
-import { cache } from "react";
 
 interface Props {
   params: Promise<{ id: string; status: Status }>;
