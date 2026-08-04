@@ -1,13 +1,16 @@
-import "./globals.css";
+import { ThemeProvider } from "./ThemeProvider";
+
+import { Container } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
-import "./theme-config.css";
-import { Container, Theme } from "@radix-ui/themes";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import NavBar from "./NavBar";
-import AuthProvider from "./auth/Provider";
-import QueryClientProvider from "./QueryClientProvider";
 import { Toaster } from "react-hot-toast";
+import AuthProvider from "./auth/Provider";
+import "./globals.css";
+import NavBar from "./NavBar";
+import QueryClientProvider from "./QueryClientProvider";
+import RadixThemeWrapper from "./RadixThemeWrapper";
+import "./theme-config.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,15 +32,17 @@ export default function RootLayout({
       <QueryClientProvider>
         <body>
           <AuthProvider>
-            <Theme accentColor="jade" radius="large">
-              <NavBar />
-              <main className="p-5">
-                <Container>
-                  {children}
-                  <Toaster />
-                </Container>
-              </main>
-            </Theme>
+            <ThemeProvider>
+              <RadixThemeWrapper>
+                <NavBar />
+                <main className="p-5">
+                  <Container>
+                    {children}
+                    <Toaster />
+                  </Container>
+                </main>
+              </RadixThemeWrapper>
+            </ThemeProvider>
           </AuthProvider>
         </body>
       </QueryClientProvider>

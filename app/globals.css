@@ -21,6 +21,42 @@ body {
 
 @layer utilities {
   .nav-link {
-    @apply text-zinc-500 hover:text-zinc-800 transition-colors;
+    @apply text-zinc-500 hover:text-[var(--accent-8)] transition-colors;
   }
+}
+
+/* IssueForm.css */
+
+html.dark .EasyMDEContainer .CodeMirror {
+  background-color: var(--color-panel);
+  color: white;
+  border-color: var(--gray-6);
+}
+
+html.dark .EasyMDEContainer .CodeMirror-cursor {
+  border-left-color: white;
+}
+
+html.dark .EasyMDEContainer .editor-toolbar {
+  background-color: var(--color-panel);
+  border-color: var(--gray-6);
+}
+
+html.dark .EasyMDEContainer .editor-toolbar button {
+  color: white !important;
+}
+
+html.dark .EasyMDEContainer .editor-toolbar button:hover,
+html.dark .EasyMDEContainer .editor-toolbar button.active {
+  background-color: var(--gray-4);
+  border-color: var(--gray-6);
+}
+
+html.dark .EasyMDEContainer .editor-preview {
+  background-color: var(--color-panel);
+  color: white;
+}
+
+html.dark .CodeMirror-placeholder {
+  color: var(--gray-9) !important;
 }

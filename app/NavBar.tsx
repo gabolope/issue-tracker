@@ -1,38 +1,45 @@
 "use client";
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import {
   Avatar,
   Box,
   Container,
   DropdownMenu,
   Flex,
+  IconButton,
   Spinner,
   Text,
 } from "@radix-ui/themes";
 import classnames from "classnames";
 import { useSession } from "next-auth/react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FaBug } from "react-icons/fa";
 
 const NavBar = () => {
   return (
-    <nav className="mb-5 border-b px-5 py-3">
+    <nav className="mb-5 border-b px-5 py-3 h-12">
       <Container>
         <Flex justify="between" align="center">
           <Flex align="center" gap="3">
             <Link href="/">
-              <FaBug />
+              <FaBug className="nav-link" />
             </Link>
             <NavLinks />
           </Flex>
-          <AuthStatus />
+          <Flex align="center" gap="5">
+            <ThemeToggle />
+            <AuthStatus />
+          </Flex>
         </Flex>
       </Container>
     </nav>
   );
 };
 
-// Como este componente se consume sólo aquí, Mosh lo definió en el mismo componente.
+// Componentes de la NavBar (sólo se consumen aquí)
 const NavLinks = () => {
   const links = [
     { label: "Dashboard", href: "/" },
@@ -48,7 +55,8 @@ const NavLinks = () => {
             href={link.href}
             className={classnames({
               "nav-link": true,
-              "!text-zinc-900": currentPath === link.href,
+              "!text-[var(--accent-10)] font-semibold":
+                currentPath === link.href,
             })}
           >
             {link.label}
@@ -98,3 +106,24 @@ const AuthStatus = () => {
 };
 
 export default NavBar;
+
+const ThemeToggle = () => {
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // evita mismatch de hidratación: no renderizamos el ícono real hasta estar en cliente
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return <IconButton variant="ghost" color="gray" disabled />;
+
+  return (
+    <IconButton
+      variant="ghost"
+      color="gray"
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      aria-label="Toggle dark mode"
+      size="2"
+    >
+      {resolvedTheme === "dark" ? <SunIcon /> : <MoonIcon />}
+    </IconButton>
+  );
+};
