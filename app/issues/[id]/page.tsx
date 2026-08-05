@@ -1,3 +1,4 @@
+import DeleteButton from "@/app/components/DeleteButton";
 import { auth } from "@/auth";
 import prisma from "@/prisma/client";
 import { Status } from "@prisma/client";
@@ -5,7 +6,6 @@ import { Box, Flex, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import AssigneeSelect from "./AssigneeSelect";
-import DeleteIssueButton from "./DeleteIssueButton";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
 import StatusControl from "./StatusControl";
@@ -39,7 +39,7 @@ const IssueDetailPage = async ({ params }: Props) => {
             <StatusControl id={issue.id} status={issue.status} />
             <AssigneeSelect issue={issue} />
             <EditIssueButton issueId={issue.id} />
-            <DeleteIssueButton issueId={issue.id} />
+            <DeleteButton itemId={issue.id.toString()} itemType="issues" />
           </Flex>
         </Box>
       )}

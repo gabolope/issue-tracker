@@ -3,10 +3,15 @@ import { AlertDialog, Button, Flex, Spinner } from "@radix-ui/themes";
 import { TrashIcon } from "@radix-ui/react-icons";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { error } from "node:console";
 import { useState } from "react";
 
-const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
+const DeleteButton = ({
+  itemId,
+  itemType,
+}: {
+  itemId: string;
+  itemType: "users" | "issues";
+}) => {
   const router = useRouter();
   const [error, setError] = useState(false);
   const [isDeleting, setDeleting] = useState(false);
@@ -14,8 +19,8 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
   const deleteIssue = async () => {
     try {
       setDeleting(true);
-      await axios.delete("/api/issues/" + issueId);
-      router.push("/issues");
+      await axios.delete(`/api/${itemType}/` + itemId);
+      router.push(`/${itemType}`);
       router.refresh();
     } catch (error) {
       setDeleting(false);
@@ -34,14 +39,15 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
             type="button"
           >
             <TrashIcon />
-            <p>Delete Issue</p>
+            <p>Delete {itemType === "issues" ? "Issue" : "User"}</p>
             <Spinner loading={isDeleting} />
           </Button>
         </AlertDialog.Trigger>
         <AlertDialog.Content maxWidth="450px">
           <AlertDialog.Title>Confirm Deletion</AlertDialog.Title>
           <AlertDialog.Description>
-            Are you shure you want to delete this issue? This action is
+            Are you shure you want to delete this{" "}
+            {itemType === "issues" ? "issue" : "user"}? This action is
             permanent.
           </AlertDialog.Description>
           <Flex gap="3" mt="4" justify="end">
@@ -53,7 +59,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
             <AlertDialog.Action>
               <Button color="red" variant="solid" onClick={deleteIssue}>
                 <TrashIcon />
-                <p>Delete Issue</p>
+                <p>Delete</p>
               </Button>
             </AlertDialog.Action>
           </Flex>
@@ -63,7 +69,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
         <AlertDialog.Content>
           <AlertDialog.Title>Error</AlertDialog.Title>
           <AlertDialog.Description>
-            This issue could not be deleted
+            This {itemType === "issues" ? "issue" : "user"} could not be deleted
           </AlertDialog.Description>
           <Button
             color="gray"
@@ -79,4 +85,4 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
   );
 };
 
-export default DeleteIssueButton;
+export default DeleteButton;
