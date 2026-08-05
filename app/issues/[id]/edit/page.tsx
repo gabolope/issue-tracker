@@ -1,10 +1,11 @@
 import prisma from "@/prisma/client";
-import { Box, Flex, Grid } from "@radix-ui/themes";
+import { Box } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import IssueForm from "../../_components/IssueForm";
 import AssigneeSelect from "../AssigneeSelect";
-import DeleteIssueButton from "../DeleteIssueButton";
+
 import StatusControl from "../StatusControl";
+import DeleteButton from "@/app/components/DeleteButton";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -25,7 +26,7 @@ const EditIssuePage = async ({ params }: Props) => {
           <>
             <StatusControl id={issue.id} status={issue.status} />
             <AssigneeSelect issue={issue} />
-            <DeleteIssueButton issueId={issue.id} />
+            <DeleteButton itemId={issue.id.toString()} itemType="issues" />
           </>
         }
       />
