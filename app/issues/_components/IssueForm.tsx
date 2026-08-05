@@ -42,7 +42,7 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
 
 type issueFormData = z.infer<typeof issueSchema>;
 
-const IssueForm = async ({
+const IssueForm = ({
   issue,
   extraActions,
 }: {
