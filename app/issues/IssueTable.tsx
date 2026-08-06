@@ -81,9 +81,17 @@ const IssueTable = async ({ searchParams, issues }: Props) => {
       </Table.Header>
       <Table.Body>
         {issues.map((issue) => (
-          <Table.Row key={issue.id}>
+          <Table.Row
+            key={issue.id}
+            className="relative hover:bg-[--gray-a2] transition-colors"
+          >
             <Table.RowHeaderCell>
-              <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+              <Link
+                href={`/issues/${issue.id}`}
+                className="before:absolute before:inset-0 before:content-['']"
+              >
+                {issue.title}
+              </Link>
               <div className="block md:hidden">
                 <IssueStatusBadge status={issue.status} />
               </div>

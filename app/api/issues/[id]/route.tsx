@@ -7,8 +7,9 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  // estas dos lineas impiden que se accedan a estos endpoints sin iniciar session:
   const session = await auth();
-  if (!session) return NextResponse.json({}, { status: 401 }); // estas dos lineas impiden que se accedan a estos endpoints sin iniciar session
+  if (!session) return NextResponse.json({}, { status: 401 });
 
   const { id } = await params;
   const body = await request.json();

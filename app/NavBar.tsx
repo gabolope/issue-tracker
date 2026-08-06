@@ -17,6 +17,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaBug } from "react-icons/fa";
+import { CiMenuBurger } from "react-icons/ci";
 
 const NavBar = () => {
   return (
@@ -24,9 +25,12 @@ const NavBar = () => {
       <Container>
         <Flex justify="between" align="center">
           <Flex align="center" gap="3">
-            <Link href="/">
+            <Link href="/" className="hidden sm:block">
               <FaBug className="nav-link" />
             </Link>
+
+            <MobileNavMenu />
+
             <NavLinks />
           </Flex>
           <Flex align="center" gap="5">
@@ -49,7 +53,7 @@ const NavLinks = () => {
   const currentPath = usePathname();
 
   return (
-    <ul className="flex space-x-6">
+    <ul className="hidden sm:flex space-x-6 ">
       {links.map((link) => (
         <li key={link.href}>
           <Link
@@ -65,6 +69,46 @@ const NavLinks = () => {
         </li>
       ))}
     </ul>
+  );
+};
+
+// Mobile Menu:
+const MobileNavMenu = () => {
+  const links = [
+    { label: "Dashboard", href: "/" },
+    { label: "Issues", href: "/issues" },
+    { label: "Users", href: "/users" },
+  ];
+  const currentPath = usePathname();
+
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+        <IconButton
+          variant="ghost"
+          color="gray"
+          aria-label="Open menu"
+          className="sm:hidden"
+        >
+          <CiMenuBurger />
+        </IconButton>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content>
+        {links.map((link) => (
+          <DropdownMenu.Item key={link.href} asChild>
+            <Link
+              href={link.href}
+              className={classnames({
+                "!text-[var(--accent-10)] font-semibold":
+                  currentPath === link.href,
+              })}
+            >
+              {link.label}
+            </Link>
+          </DropdownMenu.Item>
+        ))}
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
   );
 };
 

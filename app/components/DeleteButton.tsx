@@ -5,13 +5,12 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const DeleteButton = ({
-  itemId,
-  itemType,
-}: {
+interface Props {
   itemId: string;
   itemType: "users" | "issues";
-}) => {
+}
+
+const DeleteButton = ({ itemId, itemType }: Props) => {
   const router = useRouter();
   const [error, setError] = useState(false);
   const [isDeleting, setDeleting] = useState(false);
