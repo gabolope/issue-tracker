@@ -2,7 +2,7 @@ import { ThemeProvider } from "./ThemeProvider";
 
 import { Container } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "./auth/Provider";
@@ -16,11 +16,6 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
-
-export const metadata: Metadata = {
-  title: "Issue Tracker",
-  description: "Track your issues and mark them as solved",
-};
 
 export default function RootLayout({
   children,
@@ -49,3 +44,13 @@ export default function RootLayout({
     </html>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Issue Tracker",
+  description: "Track your issues and mark them as solved",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
