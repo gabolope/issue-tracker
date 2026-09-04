@@ -133,6 +133,7 @@ const AuthStatus = () => {
             fallback="?"
             size="2"
             radius="full"
+            variant="solid"
             className="cursor-pointer"
             // referrerPolicy="no-referrer" // en caso de que no cargue la imagen
           />
