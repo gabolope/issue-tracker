@@ -114,7 +114,10 @@ const IssueTable = async ({ searchParams, issues }: Props) => {
                   {issue.assignedToUser.name}
                 </Flex>
               ) : (
-                <Flex justify="center">-</Flex>
+                <Flex align="center" gap="2">
+                  <Avatar src={"!"} fallback={"?"} size="1" radius="full" />
+                  Unassigned
+                </Flex>
               )}
             </Table.Cell>
           </Table.Row>
