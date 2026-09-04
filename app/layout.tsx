@@ -46,7 +46,7 @@ export default function RootLayout({
 }
 
 export const metadata: Metadata = {
-  title: "Issue Tracker",
+  title: "Critter",
   description: "Track your issues and mark them as solved",
 };
 
