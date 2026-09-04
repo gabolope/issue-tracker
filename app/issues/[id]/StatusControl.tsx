@@ -37,7 +37,6 @@ const StatusControl = ({ id, status }: Props) => {
     <>
       <SegmentedControl.Root
         value={newStatus}
-        radius="large"
         size="1"
         style={{ minWidth: 0, height: "2rem" }}
         onValueChange={changeStatus}

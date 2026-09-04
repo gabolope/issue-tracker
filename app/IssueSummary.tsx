@@ -9,17 +9,26 @@ interface Props {
 }
 
 const IssueSummary = ({ open, inProgress, closed }: Props) => {
-  const containers: { label: string; value: number; status: Status }[] = [
-    { label: "Open Issues", value: open, status: "OPEN" },
-    { label: "In-progress Issues", value: inProgress, status: "IN_PROGRESS" },
-    { label: "Closed Issues", value: closed, status: "CLOSED" },
+  const containers: {
+    label: string;
+    value: number;
+    status: Status;
+    color: string;
+  }[] = [
+    { label: "Open Issues", value: open, status: "OPEN", color: "var(--red-9)" },
+    {
+      label: "In-progress Issues",
+      value: inProgress,
+      status: "IN_PROGRESS",
+      color: "var(--violet-9)",
+    },
+    {
+      label: "Closed Issues",
+      value: closed,
+      status: "CLOSED",
+      color: "var(--green-9)",
+    },
   ];
-
-  const borderColor = {
-    OPEN: "border-red-500",
-    IN_PROGRESS: "border-purple-500",
-    CLOSED: "border-green-500",
-  };
 
   return (
     <Flex gap="4" className="w-full">
@@ -30,10 +39,16 @@ const IssueSummary = ({ open, inProgress, closed }: Props) => {
           className="flex-1"
         >
           <Card
-            className={`h-full w-full border ${borderColor[container.status]} transition-all hover:shadow-lg hover:-translate-y-0.5`}
+            className="h-full w-full border transition-colors hover:bg-[--gray-a2]"
+            style={{ borderColor: container.color }}
           >
             <Flex direction="column" gap="1">
-              <Text size="2" weight="medium">
+              <Text
+                size="1"
+                weight="medium"
+                color="gray"
+                className="uppercase tracking-wide"
+              >
                 {container.label}
               </Text>
               <Text size="5" weight="bold">

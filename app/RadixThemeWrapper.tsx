@@ -12,8 +12,10 @@ export default function RadixThemeWrapper({
 
   return (
     <Theme
-      accentColor="jade"
-      radius="large"
+      accentColor="amber"
+      grayColor="slate"
+      radius="small"
+      panelBackground="solid"
       appearance={resolvedTheme as "light" | "dark"}
       suppressHydrationWarning
     >

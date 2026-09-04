@@ -60,7 +60,7 @@ const NavLinks = () => {
             href={link.href}
             className={classnames({
               "nav-link": true,
-              "!text-[var(--accent-10)] font-semibold":
+              "!text-[var(--accent-11)] font-semibold":
                 currentPath === link.href,
             })}
           >
@@ -99,7 +99,7 @@ const MobileNavMenu = () => {
             <Link
               href={link.href}
               className={classnames({
-                "!text-[var(--accent-10)] font-semibold":
+                "!text-[var(--accent-11)] font-semibold":
                   currentPath === link.href,
               })}
             >
@@ -170,7 +170,7 @@ const ThemeToggle = () => {
       aria-label="Toggle dark mode"
       size="2"
     >
-      {resolvedTheme === "dark" ? <SunIcon /> : <MoonIcon />}
+      {resolvedTheme === "dark" ? <MoonIcon /> : <SunIcon />}
     </IconButton>
   );
 };

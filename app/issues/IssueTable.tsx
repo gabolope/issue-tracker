@@ -83,9 +83,9 @@ const IssueTable = async ({ searchParams, issues }: Props) => {
         {issues.map((issue) => (
           <Table.Row
             key={issue.id}
-            className="relative hover:bg-[--gray-a2] transition-colors"
+            className="group relative hover:bg-[--gray-a2] transition-colors"
           >
-            <Table.RowHeaderCell>
+            <Table.RowHeaderCell className="group-hover:shadow-[inset_2px_0_0_0_var(--accent-9)]">
               <Link
                 href={`/issues/${issue.id}`}
                 className="before:absolute before:inset-0 before:content-['']"

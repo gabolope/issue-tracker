@@ -19,7 +19,7 @@ interface Props {
 const IssueChart = ({ open, inProgress, closed }: Props) => {
   const data = [
     { label: "Open", value: open, color: "var(--red-9)" },
-    { label: "In progress", value: inProgress, color: "var(--purple-9)" },
+    { label: "In progress", value: inProgress, color: "var(--violet-9)" },
     { label: "Closed", value: closed, color: "var(--green-9)" },
   ];
 
