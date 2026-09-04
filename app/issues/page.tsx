@@ -64,6 +64,6 @@ export const dynamic = "force-dynamic"; // fuerza a que esta página sea dinámi
 export default IssuesPage;
 
 export const metadata: Metadata = {
-  title: "Critter | Issue List",
+  title: "Critter | Issues List",
   description: "Browse, filter, sort, and manage all issues in your project.",
 };

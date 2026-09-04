@@ -12,6 +12,7 @@ import {
   Table,
   Text,
 } from "@radix-ui/themes";
+import { Metadata } from "next";
 import Link from "next/link";
 import { IoIosLogIn } from "react-icons/io";
 import DeleteButton from "../components/DeleteButton";
@@ -135,3 +136,8 @@ const UsersPage = async () => {
 };
 
 export default UsersPage;
+
+export const metadata: Metadata = {
+  title: "Critter | Users List",
+  description: "Browse, filter, sort, and manage all issues in your project.",
+};
